@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Clientes</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.15/dist/vue.global.prod.js"></script>
+</head>
+<body>
+<div id="app" class="main-container">
+  <h1 class="page-title">Clientes</h1>
+  <p class="page-subtitle">Gerencie os dados dos seus clientes de forma simples e rápida.</p>
+
+  <div class="form-wrapper">
+    <form @submit.prevent="createClient" class="form-grid-modern">
+
+      <div class="form-group full-width">
+        <label for="name">Nome</label>
+        <input id="name" v-model="newClient.name" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="cpfcnpj">CPF/CNPJ</label>
+        <input id="cpfcnpj" v-model="newClient.cpfcnpj" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" v-model="newClient.email" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Telefone</label>
+        <input id="phone" v-model="newClient.phone" class="form-control">
+      </div>
+
+      <div class="form-group full-width">
+        <label for="address">Endereço</label>
+        <input id="address" v-model="newClient.address" class="form-control">
+      </div>
+
+      <div class="form-group full-width text-end">
+        <button class="neon-btn" type="submit">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="neon-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF/CNPJ</th>
+          <th>Email</th>
+          <th>Telefone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="client in clients" :key="client.id">
+          <td>{{ client.name }}</td>
+          <td>{{ client.cpfcnpj }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.phone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<script src="/static/js/client.js"></script>
+
+</body>
+</html>

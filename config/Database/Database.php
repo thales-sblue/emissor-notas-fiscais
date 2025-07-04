@@ -7,21 +7,29 @@ use PDOException;
 
 class Database
 {
-    private $host = 'db';
-    private $db = 'emissornfdb';
-    private $user = 'postgres';
-    private $pass = 'postgres';
-    private $conn;
+    private static ?PDO $conn = null;
 
-    public function connect()
+    public static function connect(): PDO
     {
-        $this->conn = null;
-        try {
-            $this->conn = new PDO("pgsql:host={$this->host};dbname={$this->db}", $this->user, $this->pass);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            echo 'Connection Error: ' . $e->getMessage();
+        if (self::$conn === null) {
+            $host = 'db';
+            $dbname = 'emissornfdb';
+            $user = 'postgres';
+            $pass = 'postgres';
+
+            try {
+                self::$conn = new PDO("pgsql:host={$host};dbname={$dbname}", $user, $pass);
+                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                throw new PDOException("Erro ao conectar com o banco: " . $e->getMessage());
+            }
         }
-        return $this->conn;
+
+        return self::$conn;
+    }
+
+    public static function disconnect(): void
+    {
+        self::$conn = null;
     }
 }
