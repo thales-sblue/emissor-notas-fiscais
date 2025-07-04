@@ -44,7 +44,7 @@ createApp({
                 window.location.reload();
             } else {
                 const err = await res.json();
-                alert(err.error || 'Erro ao criar nota');
+                alert(err.details || 'Erro ao criar nota');
             }
         };
 

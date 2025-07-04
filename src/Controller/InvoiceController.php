@@ -41,7 +41,7 @@ class InvoiceController
             'notes'     => $data['notes'] ?? null,
         ];
 
-        $items = json_decode($data['items'], true); // Espera-se um JSON com [{ product_id, quantity, unit_price }]
+        $items = $data['items'];
 
         if (!is_array($items) || count($items) === 0) {
             Response::sendError('Itens da nota fiscal inválidos.', 422);

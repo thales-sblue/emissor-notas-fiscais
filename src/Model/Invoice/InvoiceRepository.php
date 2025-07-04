@@ -68,13 +68,25 @@ class InvoiceRepository implements InvoiceRepositoryInterface
             ");
 
             foreach ($items as $item) {
+                $stmtPrice = $this->conn->prepare("SELECT price FROM product WHERE id = :id");
+                $stmtPrice->execute(['id' => $item['product_id']]);
+                $product = $stmtPrice->fetch(PDO::FETCH_ASSOC);
+
+                if (!$product) {
+                    throw new Exception("Produto não encontrado");
+                }
+
+                $unitPrice = (float)$product['price'];
+                $quantity = (int)$item['quantity'];
+
                 $stmtItem->execute([
                     'invoice_id'  => $invoiceId,
                     'product_id'  => $item['product_id'],
-                    'quantity'    => $item['quantity'],
-                    'unit_price'  => $item['unit_price'],
+                    'quantity'    => $quantity,
+                    'unit_price'  => $unitPrice,
                 ]);
-                $total += $item['quantity'] * $item['unit_price'];
+
+                $total += $quantity * $unitPrice;
             }
 
             $update = $this->conn->prepare("UPDATE invoice SET total = :total WHERE id = :id");
