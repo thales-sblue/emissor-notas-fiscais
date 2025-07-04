@@ -34,7 +34,13 @@ return [
 
     ['GET',  '/invoices',              [$invoiceController, 'createForm']],
     ['GET',  '/invoices/index',        [$invoiceController, 'index']],
+    ['GET',  '/invoices/list',         [$invoiceController, 'list']],
     ['POST', '/invoices',              [$invoiceController, 'create']],
+    ['GET',  '/invoices/{id}/pdf',     [$invoiceController, 'generatePdf']],
     ['GET',  '/invoices/{id}',         [$invoiceController, 'show']],
     ['POST', '/invoices/{id}/delete',  [$invoiceController, 'delete']],
+
+    ['GET', '/home', function () {
+        \Thales\EmissorNF\resources\View::render('home');
+    }],
 ];

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Notas Fiscais Emitidas</title>
+  <link rel="stylesheet" href="/static/css/app.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.15/dist/vue.global.prod.js"></script>
+</head>
+<body>
+<div id="app" class="main-container">
+  <h1 class="page-title">Notas Fiscais Emitidas</h1>
+  <p class="page-subtitle">Veja abaixo todas as notas fiscais já geradas e baixe o PDF.</p>
+
+  <div class="table-wrapper">
+    <table class="neon-table">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="invoice in invoices" :key="invoice.id">
+          <td>{{ invoice.number }}</td>
+          <td>{{ invoice.client_name }}</td>
+          <td>R$ {{ parseFloat(invoice.total).toFixed(2) }}</td>
+          <td>{{ formatDate(invoice.created_at) }}</td>
+          <td>
+            <a :href="`/invoices/${invoice.id}/pdf`" class="neon-btn">Gerar PDF</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script src="/static/js/invoiceList.js"></script>
+</body>
+</html>

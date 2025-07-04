@@ -17,7 +17,10 @@ class InvoiceRepository implements InvoiceRepositoryInterface
 
     public function getAll(): array
     {
-        $sql = "SELECT * FROM invoice ORDER BY created_at DESC";
+        $sql = "SELECT i.*, c.name AS client_name
+                FROM invoice i
+                JOIN client c ON c.id = i.client_id
+                ORDER BY i.created_at DESC";
         return $this->conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
 

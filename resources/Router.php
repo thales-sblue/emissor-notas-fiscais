@@ -32,7 +32,7 @@ class Router
             }
         }
 
-        header('Location: /clients');
+        header('Location: /home');
         exit;
     }
 

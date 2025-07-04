@@ -5,6 +5,8 @@ namespace Thales\EmissorNF\Controller;
 use Thales\EmissorNF\Service\InvoiceService;
 use Thales\EmissorNF\resources\Response;
 use Thales\EmissorNF\resources\View;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class InvoiceController
 {
@@ -68,6 +70,12 @@ class InvoiceController
         Response::sendJson($invoice);
     }
 
+    public function list(): void
+    {
+        View::render('invoices.list');
+    }
+
+
     public function delete($id): void
     {
         if ($this->service->delete((int)$id)) {
@@ -76,5 +84,28 @@ class InvoiceController
         }
 
         Response::sendError('Erro ao deletar nota fiscal.', 500);
+    }
+
+    public function generatePdf(int $id): void
+    {
+        $invoice = $this->service->getById($id);
+
+        if (!$invoice) {
+            Response::sendError('Nota fiscal não encontrada.', 404);
+        }
+
+        ob_start();
+        include __DIR__ . '/../View/invoices/pdfTemplate.php';
+        $html = ob_get_clean();
+
+        $options = new Options();
+        $options->set('isRemoteEnabled', true);
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $dompdf->stream("nota_fiscal_{$invoice['number']}.pdf", ['Attachment' => true]);
     }
 }
