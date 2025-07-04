@@ -49,34 +49,14 @@ Desenvolvido em PHP puro com arquitetura MVC, integração com Vue.js no fronten
 2. Suba o banco de dados com Docker:
 
    ```bash
-   docker-compose up -d
+   docker-compose up --build
    ```
-
-3. Configure o banco no `.env` (caso exista) ou direto em `Database.php`:
-
-   ```php
-   'host' => 'localhost',
-   'dbname' => 'emissor_nf',
-   'user' => 'postgres',
-   'password' => 'postgres'
-   ```
-
-4. Importe as tabelas no PostgreSQL:
-
-   ```sql
-   CREATE TABLE client (...);
-   CREATE TABLE product (...);
-   CREATE TABLE invoice (...);
-   CREATE TABLE invoice_item (...);
-   ```
-
-5. Inicie o servidor:
 
    ```bash
    php -S localhost:8000 -t public
    ```
 
-6. Acesse:
+3. Acesse:
    [http://localhost:8000](http://localhost:8000)
 
 ---
