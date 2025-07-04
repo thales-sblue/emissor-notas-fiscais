@@ -6,12 +6,18 @@ use Thales\EmissorNF\Service\ClientService;
 use Thales\EmissorNF\Controller\ProductController;
 use Thales\EmissorNF\Model\Product\ProductRepository;
 use Thales\EmissorNF\Service\ProductService;
+use Thales\EmissorNF\Controller\InvoiceController;
+use Thales\EmissorNF\Model\Invoice\InvoiceRepository;
+use Thales\EmissorNF\Service\InvoiceService;
 
 $clientService = new ClientService(new ClientRepository());
 $clientController = new ClientController($clientService);
 
 $productService = new ProductService(new ProductRepository());
 $productController = new ProductController($productService);
+
+$invoiceService = new InvoiceService(new InvoiceRepository());
+$invoiceController = new InvoiceController($invoiceService);
 
 return [
     ['GET',  '/clients',               [$clientController, 'createForm']],
@@ -25,4 +31,10 @@ return [
     ['POST', '/products',              [$productController, 'create']],
     ['GET',  '/products/{id}',         [$productController, 'show']],
     ['POST', '/products/{id}/delete',  [$productController, 'delete']],
+
+    ['GET',  '/invoices',              [$invoiceController, 'createForm']],
+    ['GET',  '/invoices/index',        [$invoiceController, 'index']],
+    ['POST', '/invoices',              [$invoiceController, 'create']],
+    ['GET',  '/invoices/{id}',         [$invoiceController, 'show']],
+    ['POST', '/invoices/{id}/delete',  [$invoiceController, 'delete']],
 ];

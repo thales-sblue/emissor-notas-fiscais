@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nova Nota Fiscal</title>
+  <link rel="stylesheet" href="/static/css/app.css" />
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.15/dist/vue.global.prod.js"></script>
+</head>
+<body>
+<div id="app" class="main-container">
+  <h1 class="page-title">Nova Nota Fiscal</h1>
+  <p class="page-subtitle">Preencha os dados da nota e adicione os produtos.</p>
+
+  <div class="form-wrapper">
+    <form @submit.prevent="createInvoice" class="form-grid-modern">
+      <div class="form-group full-width">
+        <label for="client">Cliente</label>
+        <select id="client" v-model="invoice.client_id" class="form-control" required>
+          <option value="" disabled>Selecione o cliente</option>
+          <option v-for="client in clients" :value="client.id">{{ client.name }}</option>
+        </select>
+      </div>
+
+      <div class="form-group full-width">
+        <label>Produtos</label>
+        <div v-for="(item, index) in invoice.items" :key="index" class="form-grid-modern" style="margin-bottom: 1rem;">
+          <select v-model="item.product_id" class="form-control">
+            <option value="">Selecione o produto</option>
+            <option v-for="product in products" :value="product.id">{{ product.name }}</option>
+          </select>
+
+          <input type="number" min="1" v-model.number="item.quantity" placeholder="Quantidade" class="form-control" />
+
+          <button type="button" @click="removeItem(index)" class="neon-btn" style="background:#d9534f;">Remover</button>
+        </div>
+
+        <button type="button" @click="addItem" class="neon-btn">+ Adicionar Produto</button>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="notes">Observações</label>
+        <textarea id="notes" v-model="invoice.notes" class="form-control" rows="3"></textarea>
+      </div>
+
+      <div class="form-group full-width text-end">
+        <strong style="margin-right: 1rem;">Total: R$ {{ total.toFixed(2) }}</strong>
+        <button class="neon-btn" type="submit">Salvar Nota</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/static/js/invoice.js"></script>
+</body>
+</html>

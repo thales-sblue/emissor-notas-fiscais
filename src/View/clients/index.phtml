@@ -14,7 +14,7 @@
   <div class="form-wrapper">
     <form @submit.prevent="createClient" class="form-grid-modern">
 
-      <div class="form-group full-width">
+      <div class="form-group">
         <label for="name">Nome</label>
         <input id="name" v-model="newClient.name" class="form-control" required>
       </div>
@@ -39,7 +39,7 @@
         <input id="address" v-model="newClient.address" class="form-control">
       </div>
 
-      <div class="form-group full-width text-end">
+      <div class="form-group full-width text-center">
         <button class="neon-btn" type="submit">Cadastrar</button>
       </div>
     </form>
