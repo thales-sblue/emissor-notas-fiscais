@@ -1,0 +1,24 @@
+{
+    "name": "thales/emissornf",
+    "autoload": {
+        "psr-4": {
+            "Thales\\EmissorNF\\": "src/",
+            "Thales\\EmissorNF\\config\\": "config/",
+            "Thales\\EmissorNF\\resources\\": "resources/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Thales\\PhpBanking\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "thales-sblue",
+            "email": "thales_sblue@hotmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^12.1"
+    }
+}
