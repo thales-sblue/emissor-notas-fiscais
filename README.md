@@ -46,14 +46,10 @@ Desenvolvido em PHP puro com arquitetura MVC, integração com Vue.js no fronten
    cd emissor-nf
    ```
 
-2. Suba o banco de dados com Docker:
+2. Suba o banco de dados e o app com Docker:
 
    ```bash
    docker-compose up --build
-   ```
-
-   ```bash
-   php -S localhost:8000 -t public
    ```
 
 3. Acesse:
