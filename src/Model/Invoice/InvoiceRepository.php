@@ -26,7 +26,11 @@ class InvoiceRepository implements InvoiceRepositoryInterface
 
     public function getById(int $id): ?array
     {
-        $stmt = $this->conn->prepare("SELECT * FROM invoice WHERE id = :id");
+        $sql = "SELECT i.*, c.name AS client_name
+                  FROM invoice i
+                  JOIN client c ON c.id = i.client_id
+                 WHERE i.id = :id";
+        $stmt = $this->conn->prepare($sql);
         $stmt->execute(['id' => $id]);
         $invoice = $stmt->fetch(PDO::FETCH_ASSOC);
 

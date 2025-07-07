@@ -41,7 +41,7 @@
 <body>
     <h1>Nota Fiscal #<?= $invoice['number'] ?></h1>
 
-    <p><strong>Cliente:</strong> <?= $invoice['client_id'] ?></p>
+    <p><strong>Cliente:</strong> <?= $invoice['client_name'] ?></p>
     <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($invoice['created_at'])) ?></p>
     <p><strong>Observações:</strong> <?= $invoice['notes'] ?? 'N/A' ?></p>
 
